@@ -1,0 +1,21 @@
+<h1>My id - {{mypeerid}}</h1>
+<select #selectElem (change)="selectUser(selectElem.value)">
+    <option value="">
+    </option>
+    <option *ngFor="let thing of things; let i = index" [value]="i">
+        {{thing.name}}
+    </option>
+</select>
+<br/>
+<input type="text" [(ngModel)]="anotherid">
+<button (click)="connect()">Connect</button>
+<button (click)="videoconnect()">VideoChat</button>
+<br/>
+<input type="text" [(ngModel)]="message">
+<button (click)="send()">Send</button>
+<div>
+    <p *ngFor="let contact of chatOutput">
+        {{contact}}
+    </p>
+</div>
+<video #myvideo></video>
