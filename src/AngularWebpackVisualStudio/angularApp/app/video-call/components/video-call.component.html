@@ -2,20 +2,30 @@
 <select #selectElem (change)="selectUser(selectElem.value)">
     <option value="">
     </option>
-    <option *ngFor="let thing of things; let i = index" [value]="i">
-        {{thing.name}}
+    <option *ngFor="let user of users; let i = index" [value]="i">
+        {{user.name}}
     </option>
 </select>
 <br/>
-<input type="text" [(ngModel)]="anotherid">
-<button (click)="connect()">Connect</button>
-<button (click)="videoconnect()">VideoChat</button>
+Reciever ID: <input type="text" [(ngModel)]="receiverId">
+<button class="btn btn-primary" (click)="videoconnect()">VideoChat</button>
 <br/>
 <input type="text" [(ngModel)]="message">
-<button (click)="send()">Send</button>
+<button class="btn btn-primary" (click)="send()">Send</button>
 <div>
     <p *ngFor="let contact of chatOutput">
         {{contact}}
     </p>
 </div>
-<video #myvideo></video>
+<div *ngIf="callIsIncoming">
+    Incoming call from {{currentCall.peer}}
+    <button class="btn btn-success" (click)="answer()">Accept</button>
+    <button class="btn btn-danger" (click)="decline()">Reject</button>
+</div>
+
+<div *ngIf="currentCall?.open || ringing">
+    Videochat with {{currentCall.peer}}. <span *ngIf="ringing">Ringing...</span>
+    <button class="btn btn-danger" (click)="decline()">Disconnect</button>
+</div>
+<video #partnersCamera></video>
+<video #myCamera></video>
